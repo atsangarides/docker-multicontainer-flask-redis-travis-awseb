@@ -34,6 +34,10 @@ home = Blueprint('home', __name__)
 #
 #     return f'For index {f} fibonacci number is: {int(f_num)}'
 
+@home.route('/ping')
+def ping():
+    return str(g.db.ping())
+
 
 @home.route('/<int:f>')
 def specific_index(f):
