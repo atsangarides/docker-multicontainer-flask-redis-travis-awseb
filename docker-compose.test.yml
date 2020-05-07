@@ -1,0 +1,5 @@
+version: '3.7'
+services:
+  app:
+    command: /bin/bash -c "echo sleeping...;sleep 5;pytest -rf;"
+    restart: "no"

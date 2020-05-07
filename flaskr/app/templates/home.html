@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>Fib</title>
+</head>
+<body>
+    <!-- Nav bar -->
+    <!-- As a link -->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Fibo</a>
+    </nav>
+
+    <!--Flash Messages -->
+    {% for mess in get_flashed_messages() %}
+         <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <strong>{{ mess }}</strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+        </div>
+    {% endfor %}
+
+    <!-- Index form -->
+    <div class="container">
+        <div class="jumbotron">
+            <h2 align="center">Fibonacci Calculator</h2>
+
+            <form class="form-group" method="POST">
+             {{ form.hidden_tag() }}
+                 <div class="form-group">
+                     {{ form.index.label(class="form-control-label") }}
+                     {{ form.index(class="form-control form-control-lg ") }}
+                     {% for error in form.index.errors %}
+                         <span style="color: red;">{{ error }}</span>
+                     {% endfor %}
+                 </div>
+                 <div class="form-group">
+                     {{ form.submit(class="btn btn-outline-info") }}
+                 </div>
+            </form>
+
+            <div align="center">
+                <!-- List of indexes already queried -->
+                <h3>Indexes I have seen:</h3>
+                <p> {{ indexes }} </p>
+
+                <!-- List key,value pairs -->
+                <h3>Calculated Values:</h3>
+                {%  for key, value in f_dict.items() %}
+                    <p>Index: {{ key }}, Fibonacci number: {{ value }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
