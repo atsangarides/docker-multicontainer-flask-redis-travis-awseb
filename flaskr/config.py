@@ -3,7 +3,6 @@ import os
 
 
 class Config(object):
-    DEBUG = False
     TESTING = False
     LOGGING_LEVEL = logging.INFO
     SECRET_KEY = 'mysecret'
@@ -25,3 +24,10 @@ class TestingConfig(Config):
 class DevelopmentConfig(Config):
     DEBUG = True
     LOGGING_LEVEL = logging.DEBUG
+
+
+config = {
+    'prod': 'config.ProductionConfig',
+    'dev': 'config.DevelopmentConfig',
+    'test': 'config.TestConfig'
+}
