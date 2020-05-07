@@ -8,13 +8,13 @@ services:
             - POSTGRES_DB=postgres
         ports:
             - "5432:5432"
-        volumes:
-            - ./data/postgres/data:/var/lib/postgresql/data
+#        volumes:
+#            - ./data/postgres/data:/var/lib/postgresql/data
         restart: always
     redis-server:
         image: redis:6.0-rc3-buster
-        volumes:
-            - ./data/redis:/data
+#        volumes:
+#            - ./data/redis:/data
     app:
         build:
             dockerfile: Dockerfile
@@ -33,6 +33,7 @@ services:
             - PGPASSWORD=postgres_password
             - PGPORT=5432
             - ENV=prod
+            - CONFIG=config.ProductionConfig
         volumes:
             - ./flaskr:/app
     worker:

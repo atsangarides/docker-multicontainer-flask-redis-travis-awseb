@@ -34,6 +34,8 @@ services:
             - PGPASSWORD=postgres_password
             - PGPORT=5432
             - ENV=dev
+            - CONFIG=config.DevelopmentConfig
+
         volumes:
             - ./flaskr:/app
     worker:
