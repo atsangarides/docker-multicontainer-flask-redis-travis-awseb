@@ -39,6 +39,11 @@ def ping():
     return str(g.db.ping())
 
 
+@home.route('/exists/<int:f>')
+def check(f):
+    return str(g.db.hexists('values', str(f)))
+
+
 @home.route('/<int:f>')
 def specific_index(f):
     if f > 30:
