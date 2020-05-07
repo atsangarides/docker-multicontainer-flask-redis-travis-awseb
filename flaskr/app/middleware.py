@@ -5,13 +5,16 @@ from redis import Redis
 from rq import Queue
 import psycopg2
 
+
 def init_db():
     if 'db' not in g:
         g.db = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
 
+
 def init_worker():
     if 'q' not in g:
-        g.q = Queue(connection=g.db)
+        g.q = Queue(connection=Redis(host=current_app.config['REDIS_HOST'], decode_responses=True))
+
 
 def init_pg():
     db_cred = {
