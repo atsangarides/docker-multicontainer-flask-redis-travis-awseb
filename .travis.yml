@@ -23,17 +23,17 @@ services:
      - stage: run tests
        script:
          - docker-compose -f docker-compose.yml -f docker-compose.test.yml up --exit-code-from app
-     - stage: Build prod images and push to docker hub
-       script:
-          - docker build -t atsangarides/multi-flask-flaskr ./flaskr
-          - docker build -t atsangarides/multi-flask-nginx ./nginx
-          - docker build -t atsangarides/multi-flask-worker ./worker
-          # Log in to docker cli
-          - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-          # Push images to docker hub
-          - docker push atsangarides/multi-flask-flaskr
-          - docker push atsangarides/multi-flask-nginx
-          - docker push atsangarides/multi-flask-worker
+#     - stage: Build prod images and push to docker hub
+#       script:
+#          - docker build -t atsangarides/multi-flask-flaskr ./flaskr
+#          - docker build -t atsangarides/multi-flask-nginx ./nginx
+#          - docker build -t atsangarides/multi-flask-worker ./worker
+#          # Log in to docker cli
+#          - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+#          # Push images to docker hub
+#          - docker push atsangarides/multi-flask-flaskr
+#          - docker push atsangarides/multi-flask-nginx
+#          - docker push atsangarides/multi-flask-worker
 #deploy:
 #    # edge: true
 #    provider: elasticbeanstalk
