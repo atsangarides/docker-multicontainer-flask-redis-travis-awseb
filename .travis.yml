@@ -34,15 +34,15 @@ after_success:
 #          - docker push atsangarides/multi-flask-flaskr
 #          - docker push atsangarides/multi-flask-nginx
 #          - docker push atsangarides/multi-flask-worker
-#deploy:
-#    # edge: true
-#    provider: elasticbeanstalk
-#    region: "eu-west-2"
-#    app: "multi-docker"
-#    env: "MultiDocker-env"
-#    bucket_name: "elasticbeanstalk-eu-west-2-983627010696"
-#    bucket_path: "multi-docker"
-#    on:
-#        branch: master
-#    access_key_id: $AWS_ACCESS_KEY
-#    secret_access_key: $AWS_SECRET_KEY
+deploy:
+    # edge: true
+    provider: elasticbeanstalk
+    region: "eu-west-2"
+    app: "multi-docker-flask"
+    env: "MultiDockerFlask-env"
+    bucket_name: "elasticbeanstalk-eu-west-2-983627010696"
+    bucket_path: "multi-docker-flask"
+    on:
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
