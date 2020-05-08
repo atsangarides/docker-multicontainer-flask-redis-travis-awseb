@@ -11,31 +11,23 @@ services:
 #        volumes:
 #            - ./data/postgres/data:/var/lib/postgresql/data
         restart: always
-    redis-server:
-        image: redis:6.0-rc3-buster
-#        volumes:
-#            - ./data/redis:/data
     app:
         build:
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile
             context: './flaskr'
         depends_on:
-            - redis-server
             - postgres
-            - worker
         ports:
             - "5000:5000"
         environment:
             - DEBUG=True
-            - REDIS_HOST=redis-server
+            - REDIS_HOST=multi-docker-redis.dhfy4f.0001.euw2.cache.amazonaws.com
             - PGUSER=postgres
             - PGHOST=postgres
             - PGDATABASE=postgres
             - PGPASSWORD=postgres_password
             - PGPORT=5432
-            - ENV=dev
-            - CONFIG=config.DevelopmentConfig
-
+            - ENV=prod
         volumes:
             - ./flaskr:/app
     worker:
@@ -43,10 +35,8 @@ services:
             dockerfile: Dockerfile
             context: './flaskr'
         command: python worker.py
-        depends_on:
-          - redis-server
         environment:
-            - REDIS_HOST=redis-server
+            - REDIS_HOST=multi-docker-redis.dhfy4f.0001.euw2.cache.amazonaws.com:
         volumes:
             - ./flaskr:/app
     nginx:

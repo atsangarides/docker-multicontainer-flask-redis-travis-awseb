@@ -17,5 +17,5 @@ COPY ./ ./
 ADD ./entrypoint.sh /tmp/entrypoint.sh
 RUN chmod 777 /tmp/entrypoint.sh
 
-# CMD python main.py
-CMD ["/tmp/entrypoint.sh"]
+CMD python main.py
+# CMD ["/tmp/entrypoint.sh"]
