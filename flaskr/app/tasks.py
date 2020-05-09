@@ -1,11 +1,8 @@
 import os
 
 from redis import Redis
-import redis
 
-# r = Redis(host=os.getenv('REDIS_HOST'))
-pool = redis.ConnectionPool(host=os.getenv('REDIS_HOST'), decode_responses=True)
-r = Redis(connection_pool=pool)
+r = Redis(host=os.getenv('REDIS_HOST'))
 
 
 def Fibonacci(n):

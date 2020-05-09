@@ -21,7 +21,7 @@ def create_app(config):
     db.init_app(app)
     # redis
     app.before_request(init_db)
-    app.before_request(init_worker)
+    # app.before_request(init_worker)
     app.before_first_request(init_pg)
 
     # Blueprints

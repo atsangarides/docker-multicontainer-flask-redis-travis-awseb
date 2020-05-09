@@ -1,6 +1,10 @@
+import os
+
 import time
 import asyncio
 from flask import g, Blueprint, render_template
+from rq import Connection, Queue
+from redis import Redis
 
 from app import db
 from ..tasks import fetch_fibonacci
@@ -72,7 +76,9 @@ def calculator():
         f = form.index.data
 
         if not g.db.hexists('values', str(f)):
-            job = g.q.enqueue(fetch_fibonacci, f)
+            with Connection(Redis(host=os.getenv('REDIS_HOST'), decode_responses=True)):
+                q = Queue()
+                job = q.enqueue(fetch_fibonacci, f)
             value = Values(number=f)
             db.session.add(value)
             db.session.commit()
