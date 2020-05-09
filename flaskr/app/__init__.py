@@ -1,3 +1,5 @@
+import logging
+
 from flask import Flask
 
 from .middleware import init_db, init_worker, init_pg
@@ -17,6 +19,7 @@ def create_app(config):
 
     # Configurations
     app.config.from_object(config)
+    logging.basicConfig(level=app.config['LOGGING_LEVEL'])
     # postgres
     db.init_app(app)
     # redis

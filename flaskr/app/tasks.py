@@ -1,4 +1,5 @@
 import os
+import logging
 
 from redis import Redis
 
@@ -15,5 +16,7 @@ def Fibonacci(n):
 
 
 def fetch_fibonacci(n):
+    logging.info(f'Received task for index: {n}')
     fib_num = Fibonacci(n)
+    logging.info(f'Setting value for index: {n}')
     r.hset('values', str(n), fib_num)

@@ -1,4 +1,5 @@
 import os
+import logging
 
 import time
 import asyncio
@@ -75,14 +76,19 @@ def calculator():
     if form.validate_on_submit():
         f = form.index.data
 
+        logging.info('Checking if value exists')
         if not g.db.hexists('values', str(f)):
+            logging.info(f'Index {f} does not exist')
             with Connection(Redis(host=os.getenv('REDIS_HOST'), decode_responses=True)):
                 q = Queue()
+                logging.info(f'Enqueueing index {f}')
                 job = q.enqueue(fetch_fibonacci, f)
+            logging.info(f'Adding {f} to postgres')
             value = Values(number=f)
             db.session.add(value)
             db.session.commit()
 
+            logging.info('looping over job status')
             while not job.is_finished:
                 time.sleep(1)
 
