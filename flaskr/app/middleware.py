@@ -1,7 +1,6 @@
 import os
 
 from flask import current_app, g
-import redis
 from redis import Redis
 from rq import Queue
 import psycopg2
@@ -9,16 +8,12 @@ import psycopg2
 
 def init_db():
     if 'db' not in g:
-        # g.db = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
-        pool = redis.ConnectionPool(host=os.getenv('REDIS_HOST'), decode_responses=True)
-        g.db = Redis(connection_pool=pool)
+        g.db = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
 
 
 def init_worker():
     if 'q' not in g:
-        # r = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
-        pool = redis.ConnectionPool(host=os.getenv('REDIS_HOST'), decode_responses=True)
-        r = Redis(connection_pool=pool)
+        r = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
         g.q = Queue(connection=r)
 
 

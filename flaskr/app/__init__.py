@@ -1,7 +1,4 @@
-import os
-
 from flask import Flask
-import redis
 
 from .middleware import init_db, init_worker, init_pg
 from flask_sqlalchemy import SQLAlchemy

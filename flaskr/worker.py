@@ -1,14 +1,12 @@
 import os
 
-import redis
 from redis import Redis
 from rq import Worker, Queue, Connection
 
 
 listen = ['default']
 
-pool = redis.ConnectionPool(host=os.getenv('REDIS_HOST'), decode_responses=True)
-conn = Redis(connection_pool=pool)
+conn = Redis(host=os.getenv('REDIS_HOST'))
 
 
 if __name__ == '__main__':
