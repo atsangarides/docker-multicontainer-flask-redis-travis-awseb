@@ -84,7 +84,7 @@ def calculator():
             db.session.commit()
 
             while not job.is_finished:
-                time.sleep(0.01)
+                time.sleep(1)
 
     # fetch all indexes from postgres
     indexes = Values.query.with_entities(Values.number).all()
