@@ -13,26 +13,43 @@ services:
         restart: always
     redis-server:
         image: redis:6.0-rc3-buster
+        ports:
+            - "6379:6379"
 #        volumes:
 #            - ./data/redis:/data
+    redis-worker:
+        image: redis:6.0-rc3-buster
+        command: --port 6380
+        #        hostname: redis-worker
+        depends_on:
+            - redis-server
+        ports:
+            - "6380:6380"
+        restart: always
     app:
         build:
             dockerfile: Dockerfile
             context: './flaskr'
         depends_on:
             - redis-server
+            - redis-worker
             - postgres
+            - worker
         ports:
             - "5000:5000"
         environment:
             - DEBUG=True
-            - REDIS_HOST=redis-server
+            - REDIS_SERVER_HOST=redis-server
+            - REDIS_SERVER_PORT=6379
+            - REDIS_WORKER_HOST=redis-worker
+            - REDIS_WORKER_PORT=6380
             - PGUSER=postgres
             - PGHOST=postgres
             - PGDATABASE=postgres
             - PGPASSWORD=postgres_password
             - PGPORT=5432
             - ENV=prod
+            - CONFIG=config.DevelopmentConfig
         volumes:
             - ./flaskr:/app
     worker:
@@ -43,7 +60,10 @@ services:
         depends_on:
           - redis-server
         environment:
-            - REDIS_HOST=redis-server
+            - REDIS_SERVER_HOST=redis-server
+            - REDIS_SERVER_PORT=6379
+            - REDIS_WORKER_HOST=redis-worker
+            - REDIS_WORKER_PORT=6380
         volumes:
             - ./flaskr:/app
     nginx:
