@@ -8,12 +8,14 @@ import psycopg2
 
 def init_db():
     if 'db' not in g:
-        g.db = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
+        g.db = Redis(host=os.getenv('REDIS_SERVER_HOST'),
+                     port=int(os.getenv('REDIS_SERVER_PORT')),
+                     decode_responses=True)
 
 
 def init_worker():
     if 'q' not in g:
-        r = Redis(host=current_app.config['REDIS_HOST'], decode_responses=True)
+        r = Redis(host=os.getenv('REDIS_WORKER_HOST'), port=int(os.getenv('REDIS_WORKER_PORT')), decode_responses=True)
         g.q = Queue(connection=r)
 
 

@@ -3,7 +3,7 @@ import logging
 
 from redis import Redis
 
-r = Redis(host=os.getenv('REDIS_HOST'))
+r = Redis(host=os.getenv('REDIS_SERVER_HOST'), port=int(os.getenv('REDIS_SERVER_PORT')))
 
 
 def Fibonacci(n):

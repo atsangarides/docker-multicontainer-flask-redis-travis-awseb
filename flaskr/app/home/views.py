@@ -79,7 +79,10 @@ def calculator():
         logging.info('Checking if value exists')
         if not g.db.hexists('values', str(f)):
             logging.info(f'Index {f} does not exist')
-            with Connection(Redis(host=os.getenv('REDIS_HOST'), decode_responses=True)):
+            with Connection(Redis(host=os.getenv('REDIS_WORKER_HOST'),
+                                  port=int(os.getenv('REDIS_WORKER_PORT')),
+                                  decode_responses=True)
+                            ):
                 q = Queue()
                 logging.info(f'Enqueueing index {f}')
                 job = q.enqueue(fetch_fibonacci, f)

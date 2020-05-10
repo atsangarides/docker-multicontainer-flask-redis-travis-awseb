@@ -5,9 +5,9 @@ from redis import Redis
 from rq import Worker, Queue, Connection
 
 
-listen = ['default']
+listen = ['high', 'default', 'low']
 
-conn = Redis(host=os.getenv('REDIS_HOST'))
+conn = Redis(host=os.getenv('REDIS_WORKER_HOST'), port=int(os.getenv('REDIS_WORKER_PORT')))
 logging.basicConfig(level=logging.INFO)
 
 
