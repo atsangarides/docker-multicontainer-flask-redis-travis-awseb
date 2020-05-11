@@ -86,14 +86,15 @@ def calculator():
                 q = Queue()
                 logging.info(f'Enqueueing index {f}')
                 job = q.enqueue(fetch_fibonacci, f)
+
+                logging.info('looping over job status')
+                while not job.is_finished:
+                    time.sleep(1)
+
             logging.info(f'Adding {f} to postgres')
             value = Values(number=f)
             db.session.add(value)
             db.session.commit()
-
-            logging.info('looping over job status')
-            while not job.is_finished:
-                time.sleep(1)
 
     # fetch all indexes from postgres
     indexes = Values.query.with_entities(Values.number).all()

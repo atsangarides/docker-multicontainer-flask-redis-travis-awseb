@@ -131,3 +131,6 @@ dmypy.json
 
 # redis data
 data/
+
+# pyenv
+.python-version
