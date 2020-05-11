@@ -8,18 +8,14 @@ services:
             - POSTGRES_DB=postgres
         ports:
             - "5432:5432"
-#        volumes:
-#            - ./data/postgres/data:/var/lib/postgresql/data
         restart: always
     redis-server:
         image: redis:6.0-rc3-buster
-#        hostname: redis-server
         ports:
             - "6379:6379"
     redis-worker:
         image: redis:6.0-rc3-buster
         command: --port 6380
-#        hostname: redis-worker
         depends_on:
             - redis-server
         ports:
@@ -78,7 +74,6 @@ services:
         ports:
         - "80:80"
 
-#      driver: "bridge"
 #    worker:
 #        build:
 #            dockerfile: Dockerfile

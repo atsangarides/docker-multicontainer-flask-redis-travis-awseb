@@ -2,7 +2,7 @@ import logging
 
 from flask import Flask
 
-from .middleware import init_db, init_worker, init_pg
+from .middleware import init_db, init_pg
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -29,13 +29,4 @@ def create_app(config):
 
     # Blueprints
     register_blueprints(app)
-
-    # with app.app_context():
-    #     try:
-    #         db.create_all()
-    #     except:
-    #         print('Table already exists!')
-
-    # app.before_request(init_pg)
-
     return app

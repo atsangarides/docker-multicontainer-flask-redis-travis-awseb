@@ -8,19 +8,15 @@ services:
             - POSTGRES_DB=postgres
         ports:
             - "5432:5432"
-#        volumes:
-#            - ./data/postgres/data:/var/lib/postgresql/data
+
         restart: always
     redis-server:
         image: redis:6.0-rc3-buster
         ports:
             - "6379:6379"
-#        volumes:
-#            - ./data/redis:/data
     redis-worker:
         image: redis:6.0-rc3-buster
         command: --port 6380
-        #        hostname: redis-worker
         depends_on:
             - redis-server
         ports:
@@ -28,7 +24,7 @@ services:
         restart: always
     app:
         build:
-            dockerfile: Dockerfile
+            dockerfile: Dockerfile.dev
             context: './flaskr'
         depends_on:
             - redis-server
