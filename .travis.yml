@@ -9,7 +9,7 @@ before_install:
 after_success:
     - docker build -t atsangarides/multi-flask-flaskr ./flaskr
     - docker build -t atsangarides/multi-flask-nginx ./nginx
-    - docker build -t atsangarides/multi-flask-worker ./worker
+    - docker build -t atsangarides/multi-flask-worker ./flaskr -f ./flaskr/Dockerfile.worker
     # Log in to docker cli
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     #  Push images to docker hub

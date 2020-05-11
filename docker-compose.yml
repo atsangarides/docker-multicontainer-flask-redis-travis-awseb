@@ -59,6 +59,7 @@ services:
         command: python worker.py
         depends_on:
           - redis-server
+          - redis-worker
         environment:
             - REDIS_SERVER_HOST=redis-server
             - REDIS_SERVER_PORT=6379
